@@ -1,16 +1,34 @@
 
 import { useState } from 'react';
-import { Menu, Search, User, X } from 'lucide-react';
+import { Menu, Search, User, X, ShoppingCart } from 'lucide-react';
 import { Button } from './ui/button';
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navItems = [
-    { title: 'LEGACY', items: ['History', 'Vision', 'Craftsmanship'] },
-    { title: 'MAKERS', items: ['Our Artisans', 'Process', 'Materials'] },
-    { title: 'RETAIL', items: ['Showrooms', 'Dealers', 'Contact'] },
-    { title: 'PRODUCTS', items: ['Living Room', 'Dining Room', 'Bedroom'] },
+    { title: 'LEGACY', items: [
+      { name: 'History', path: '/history' },
+      { name: 'Vision', path: '/vision' },
+      { name: 'Craftsmanship', path: '/craftsmanship' }
+    ]},
+    { title: 'MAKERS', items: [
+      { name: 'Our Artisans', path: '/artisans' },
+      { name: 'Process', path: '/process' },
+      { name: 'Materials', path: '/materials' }
+    ]},
+    { title: 'RETAIL', items: [
+      { name: 'Showrooms', path: '/showrooms' },
+      { name: 'Dealers', path: '/dealers' },
+      { name: 'Contact', path: '/contact' }
+    ]},
+    { title: 'PRODUCTS', items: [
+      { name: 'Living Room', path: '/category/living-room' },
+      { name: 'Dining Room', path: '/category/dining-room' },
+      { name: 'Bedroom', path: '/category/bedroom' }
+    ]},
   ];
 
   return (
@@ -18,19 +36,26 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
+            <Link to="/account">
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+            <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(!isSearchOpen)}>
               <Search className="h-5 w-5" />
             </Button>
+            <Link to="/cart">
+              <Button variant="ghost" size="icon">
+                <ShoppingCart className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
           
-          <div className="flex-1 flex justify-center">
-            <a href="/" className="text-2xl font-serif tracking-wider">
+          <Link to="/" className="flex-1 flex justify-center">
+            <span className="text-2xl font-serif tracking-wider hover:text-gold transition-colors">
               STALLION STAINLESS
-            </a>
-          </div>
+            </span>
+          </Link>
 
           <div className="flex items-center space-x-4">
             <Button
@@ -44,6 +69,20 @@ const Navigation = () => {
           </div>
         </div>
 
+        {/* Search bar */}
+        {isSearchOpen && (
+          <div className="absolute left-0 right-0 bg-white p-4 border-b shadow-lg animate-fade-down">
+            <div className="container mx-auto">
+              <input
+                type="search"
+                placeholder="Search products..."
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                autoFocus
+              />
+            </div>
+          </div>
+        )}
+
         <div className="hidden lg:flex justify-center space-x-12 py-4">
           {navItems.map((item) => (
             <div key={item.title} className="group relative">
@@ -53,13 +92,13 @@ const Navigation = () => {
               <div className="absolute left-0 mt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
                 <div className="bg-white shadow-lg rounded-md py-2">
                   {item.items.map((subItem) => (
-                    <a
-                      key={subItem}
-                      href="#"
+                    <Link
+                      key={subItem.name}
+                      to={subItem.path}
                       className="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-gold transition-colors"
                     >
-                      {subItem}
-                    </a>
+                      {subItem.name}
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -77,13 +116,14 @@ const Navigation = () => {
                 <h3 className="font-medium mb-2">{item.title}</h3>
                 <div className="space-y-2">
                   {item.items.map((subItem) => (
-                    <a
-                      key={subItem}
-                      href="#"
+                    <Link
+                      key={subItem.name}
+                      to={subItem.path}
                       className="block py-2 text-gray-600 hover:text-gold transition-colors"
+                      onClick={() => setIsOpen(false)}
                     >
-                      {subItem}
-                    </a>
+                      {subItem.name}
+                    </Link>
                   ))}
                 </div>
               </div>
