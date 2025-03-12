@@ -1,6 +1,7 @@
 
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
+import FeaturedProducts from '../components/FeaturedProducts';
 import { Card } from '../components/ui/card';
 
 const categories = [
@@ -25,9 +26,11 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
+      <FeaturedProducts />
       
-      <section className="py-20 bg-gray-50">
+      <section className="py-20">
         <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-serif text-center mb-12">Our Collections</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {categories.map((category) => (
               <Card key={category.title} className="p-8 hover:shadow-lg transition-shadow">
