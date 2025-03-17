@@ -19,6 +19,7 @@ import Materials from "./pages/Materials";
 import Contact from "./pages/Contact";
 import Showrooms from "./pages/Showrooms";
 import Dealers from "./pages/Dealers";
+import Sustainability from "./pages/Sustainability";
 import Navigation from "./components/Navigation";
 
 // New living room pages
@@ -41,13 +42,16 @@ const App = () => (
           {/* Heritage Routes */}
           <Route path="/heritage" element={<Heritage />} />
           <Route path="/history" element={<History />} />
-          <Route path="/vision" element={<Vision />} />
-          <Route path="/craftsmanship" element={<Craftsmanship />} />
-          
-          {/* Artisans Routes */}
           <Route path="/artisans" element={<Artisans />} />
           <Route path="/process" element={<Process />} />
           <Route path="/materials" element={<Materials />} />
+          
+          {/* Sustainability Route */}
+          <Route path="/sustainability" element={<Sustainability />} />
+          
+          {/* Legacy Routes - kept for backward compatibility */}
+          <Route path="/vision" element={<Vision />} />
+          <Route path="/craftsmanship" element={<Craftsmanship />} />
           
           {/* Product Routes */}
           <Route path="/category/bedroom" element={<CategoryBedroom />} />

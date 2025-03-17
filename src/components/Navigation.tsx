@@ -45,13 +45,12 @@ const Navigation = () => {
   const navItems = [
     { title: 'HERITAGE', items: [
       { name: 'History', path: '/history' },
-      { name: 'Vision', path: '/vision' },
-      { name: 'Craftsmanship', path: '/craftsmanship' }
-    ]},
-    { title: 'ARTISANS', items: [
-      { name: 'Our Artisans', path: '/artisans' },
+      { name: 'Artisans', path: '/artisans' },
       { name: 'Process', path: '/process' },
       { name: 'Materials', path: '/materials' }
+    ]},
+    { title: 'SUSTAINABILITY', items: [
+      { name: 'Sustainability', path: '/sustainability' }
     ]},
     { title: 'PRODUCTS', items: [
       { 
