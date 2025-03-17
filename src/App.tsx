@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,15 +5,28 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import CategoryBedroom from "./pages/CategoryBedroom";
+import GDriveGallery from "./pages/GDriveGallery";
+import DiningRoom from "./pages/DiningRoom";
+import LivingRoom from "./pages/LivingRoom";
+import Heritage from "./pages/Heritage";
+import History from "./pages/History";
+import Vision from "./pages/Vision";
+import Craftsmanship from "./pages/Craftsmanship";
+import Artisans from "./pages/Artisans";
+import Process from "./pages/Process";
+import Materials from "./pages/Materials";
+import Contact from "./pages/Contact";
+import Showrooms from "./pages/Showrooms";
+import Dealers from "./pages/Dealers";
+import Navigation from "./components/Navigation";
+
+// New living room pages
+import LivingRoomSofas from "./pages/LivingRoomSofas";
+import LivingRoomFurniture from "./pages/LivingRoomFurniture";
+import SofaType from "./pages/SofaType";
 
 const queryClient = new QueryClient();
-
-const Placeholder = () => (
-  <div className="container mx-auto px-4 pt-32">
-    <h1 className="text-4xl font-serif mb-4">Coming Soon</h1>
-    <p className="text-gray-600">This page is under construction.</p>
-  </div>
-);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -22,20 +34,47 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Navigation />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/history" element={<Placeholder />} />
-          <Route path="/vision" element={<Placeholder />} />
-          <Route path="/craftsmanship" element={<Placeholder />} />
-          <Route path="/artisans" element={<Placeholder />} />
-          <Route path="/process" element={<Placeholder />} />
-          <Route path="/materials" element={<Placeholder />} />
-          <Route path="/showrooms" element={<Placeholder />} />
-          <Route path="/dealers" element={<Placeholder />} />
-          <Route path="/contact" element={<Placeholder />} />
-          <Route path="/category/:categoryId" element={<Placeholder />} />
-          <Route path="/account" element={<Placeholder />} />
-          <Route path="/cart" element={<Placeholder />} />
+          
+          {/* Heritage Routes */}
+          <Route path="/heritage" element={<Heritage />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/vision" element={<Vision />} />
+          <Route path="/craftsmanship" element={<Craftsmanship />} />
+          
+          {/* Artisans Routes */}
+          <Route path="/artisans" element={<Artisans />} />
+          <Route path="/process" element={<Process />} />
+          <Route path="/materials" element={<Materials />} />
+          
+          {/* Product Routes */}
+          <Route path="/category/bedroom" element={<CategoryBedroom />} />
+          <Route path="/category/dining-room" element={<DiningRoom />} />
+          <Route path="/category/living-room" element={<LivingRoom />} />
+          
+          {/* Living Room Subcategories */}
+          <Route path="/category/living-room/sofas" element={<LivingRoomSofas />} />
+          <Route path="/category/living-room/pouffe" element={<LivingRoomFurniture />} />
+          <Route path="/category/living-room/corner-table" element={<LivingRoomFurniture />} />
+          <Route path="/category/living-room/console-table" element={<LivingRoomFurniture />} />
+          <Route path="/category/living-room/coffee-table" element={<LivingRoomFurniture />} />
+          
+          {/* Sofa Types */}
+          <Route path="/category/living-room/sofas/straight" element={<SofaType />} />
+          <Route path="/category/living-room/sofas/corner" element={<SofaType />} />
+          <Route path="/category/living-room/sofas/curved" element={<SofaType />} />
+          <Route path="/category/living-room/sofas/u-shaped" element={<SofaType />} />
+          <Route path="/category/living-room/sofas/recliner" element={<SofaType />} />
+          <Route path="/category/living-room/sofas/sofa-cum-bed" element={<SofaType />} />
+          
+          {/* Contact Routes */}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/showrooms" element={<Showrooms />} />
+          <Route path="/dealers" element={<Dealers />} />
+          
+          <Route path="/gdrive-gallery" element={<GDriveGallery />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

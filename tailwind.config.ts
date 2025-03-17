@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       colors: {
-        gold: "#C4A661",
+        gold: "rgb(9, 172, 178)",
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

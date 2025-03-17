@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Young+Serif&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -26,6 +26,8 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    --theme: 184 95% 37%;  /* rgb(9, 172, 178) */
+    --theme-hover: 184 95% 32%;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -91,4 +93,53 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Theme color utilities to replace gold */
+.text-gold {
+  color: hsl(var(--theme));
+}
+
+.bg-gold {
+  background-color: hsl(var(--theme));
+}
+
+.hover\:bg-gold:hover {
+  background-color: hsl(var(--theme));
+}
+
+.hover\:text-gold:hover {
+  color: hsl(var(--theme));
+}
+
+.border-gold {
+  border-color: hsl(var(--theme));
+}
+
+.focus\:ring-gold:focus {
+  --tw-ring-color: hsl(var(--theme));
+}
+
+.focus\:border-gold:focus {
+  border-color: hsl(var(--theme));
+}
+
+.hover\:bg-gold\/90:hover {
+  background-color: hsl(var(--theme) / 0.9);
+}
+
+.hover\:text-gold\/80:hover {
+  color: hsl(var(--theme) / 0.8);
+}
+
+.bg-gold\/10 {
+  background-color: hsl(var(--theme) / 0.1);
+}
+
+.bg-gold\/80 {
+  background-color: hsl(var(--theme) / 0.8);
+}
+
+.text-gold\/80 {
+  color: hsl(var(--theme) / 0.8);
 }
