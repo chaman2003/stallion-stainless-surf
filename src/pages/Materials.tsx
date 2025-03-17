@@ -47,9 +47,9 @@ const Materials = () => {
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 mb-8">
         <div className="text-sm text-gray-500 mb-2">
-          <Link to="/" className="hover:text-gold transition-colors">Home</Link>
+          <Link to="/" className="hover:text-[hsl(var(--theme))] transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <Link to="/artisans" className="hover:text-gold transition-colors">Artisans</Link>
+          <Link to="/artisans" className="hover:text-[hsl(var(--theme))] transition-colors">Artisans</Link>
           <span className="mx-2">/</span>
           <span className="text-gray-800">Materials</span>
         </div>

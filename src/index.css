@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Young+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Young+Serif&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -26,8 +26,8 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
-    --theme: 184 95% 37%;  /* rgb(9, 172, 178) */
-    --theme-hover: 184 95% 32%;
+    --theme: 210 100% 12%; /* #001F3F - dark navy blue */
+    --theme-hover: 210 100% 18%;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;

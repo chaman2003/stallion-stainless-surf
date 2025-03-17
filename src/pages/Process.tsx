@@ -80,9 +80,9 @@ const Process = () => {
         <div className="text-sm text-gray-500 mb-2">
           <Link to="/" className="hover:text-[hsl(var(--theme))] transition-colors">Home</Link>
           <span className="mx-2">/</span>
-          <Link to="/heritage" className="hover:text-[hsl(var(--theme))] transition-colors">Heritage</Link>
+          <Link to="/process" className="hover:text-[hsl(var(--theme))] transition-colors">Process</Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-800">Process & Craftsmanship</span>
+          <span className="text-gray-800">Craftsmanship</span>
         </div>
       </div>
 

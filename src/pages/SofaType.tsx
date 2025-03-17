@@ -305,6 +305,8 @@ const SofaType = () => {
     products: SofaProduct[] 
   } | null>(null);
   const [capitalizedType, setCapitalizedType] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState<SofaProduct | null>(null);
+  const [showProductDetail, setShowProductDetail] = useState(false);
 
   useEffect(() => {
     if (type && type in sofaData) {
@@ -317,8 +319,23 @@ const SofaType = () => {
         .join(' ');
       
       setCapitalizedType(formatted);
+      
+      // Reset product view when changing types
+      setShowProductDetail(false);
+      setSelectedProduct(null);
     }
   }, [type]);
+
+  const handleViewProduct = (product: SofaProduct) => {
+    setSelectedProduct(product);
+    setShowProductDetail(true);
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToCollection = () => {
+    setShowProductDetail(false);
+    setSelectedProduct(null);
+  };
 
   if (!sofaType) {
     return (
@@ -371,50 +388,44 @@ const SofaType = () => {
                 <span className="text-gold">{capitalizedType}</span>
               </div>
             </li>
+            {showProductDetail && selectedProduct && (
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <span className="mx-2 text-gray-400">/</span>
+                  <span className="text-gold">{selectedProduct.name}</span>
+                </div>
+              </li>
+            )}
           </ol>
         </nav>
       </div>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 mb-16">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-serif mb-6"
-          >
-            {sofaType.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-gray-600 mb-8"
-          >
-            {sofaType.description}
-          </motion.p>
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <section className="container mx-auto px-4 mb-16">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {sofaType.products.map((product, index) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row"
+      {showProductDetail && selectedProduct ? (
+        /* Individual Product Detail View */
+        <div className="container mx-auto px-4">
+          {/* Back button */}
+          <div className="mb-8">
+            <button 
+              onClick={handleBackToCollection}
+              className="inline-flex items-center text-gold hover:text-gold/80 transition-colors"
             >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              <span>Back to {capitalizedType} Collection</span>
+            </button>
+          </div>
+          
+          {/* Product Detail */}
+          <div className="bg-white rounded-lg overflow-hidden shadow-xl">
+            <div className="grid md:grid-cols-2 gap-0">
               {/* Product Image */}
-              <div className="md:w-1/2 relative overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              <div className="relative overflow-hidden">
+                <motion.img
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  src={selectedProduct.image}
+                  alt={selectedProduct.name}
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute top-4 right-4 flex space-x-2">
                   <button className="bg-white p-2 rounded-full hover:bg-gray-100 transition-colors">
@@ -427,51 +438,68 @@ const SofaType = () => {
               </div>
               
               {/* Product Details */}
-              <div className="md:w-1/2 p-6 flex flex-col">
-                <h3 className="text-2xl font-medium mb-2">{product.name}</h3>
-                <span className="text-gold text-xl font-medium mb-4">{product.price}</span>
-                <p className="text-gray-600 mb-4">{product.description}</p>
+              <motion.div 
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="p-8 flex flex-col"
+              >
+                <h1 className="text-3xl font-serif mb-2">{selectedProduct.name}</h1>
+                <span className="text-gold text-2xl font-medium mb-6">{selectedProduct.price}</span>
+                <p className="text-gray-600 mb-6">{selectedProduct.description}</p>
                 
                 {/* Product Features */}
-                <div className="mb-4">
-                  <h4 className="font-medium text-lg mb-2">Features</h4>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {product.features.map((feature, idx) => (
+                <div className="mb-6">
+                  <h3 className="font-medium text-lg mb-3">Features</h3>
+                  <ul className="list-disc pl-5 space-y-2">
+                    {selectedProduct.features.map((feature, idx) => (
                       <li key={idx} className="text-gray-600">{feature}</li>
                     ))}
                   </ul>
                 </div>
                 
+                {/* Materials */}
+                <div className="mb-6">
+                  <h3 className="font-medium text-lg mb-3">Materials</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProduct.materials.map((material, idx) => (
+                      <span key={idx} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                        {material}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
                 {/* Product Specifications */}
-                <div className="mb-4 grid grid-cols-2 gap-4">
+                <div className="mb-6 grid grid-cols-2 gap-6">
                   <div>
-                    <span className="font-medium">Dimensions:</span>
-                    <p className="text-gray-600">{product.dimensions}</p>
+                    <span className="font-medium block mb-2">Dimensions</span>
+                    <p className="text-gray-600">{selectedProduct.dimensions}</p>
                   </div>
                   <div>
-                    <span className="font-medium">Availability:</span>
+                    <span className="font-medium block mb-2">Availability</span>
                     <p className={`${
-                      product.availability === 'In Stock' 
+                      selectedProduct.availability === 'In Stock' 
                         ? 'text-green-600' 
-                        : product.availability === 'Out of Stock' 
+                        : selectedProduct.availability === 'Out of Stock' 
                           ? 'text-red-600' 
                           : 'text-amber-600'
                     }`}>
-                      {product.availability}
+                      {selectedProduct.availability}
                     </p>
                   </div>
                   <div>
-                    <span className="font-medium">Delivery:</span>
-                    <p className="text-gray-600">{product.delivery}</p>
+                    <span className="font-medium block mb-2">Delivery</span>
+                    <p className="text-gray-600">{selectedProduct.delivery}</p>
                   </div>
                 </div>
                 
                 {/* Color Options */}
-                <div className="mb-6">
-                  <span className="font-medium">Available Colors:</span>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {product.colors.map((color, idx) => (
-                      <span key={idx} className="px-2 py-1 bg-gray-100 text-sm rounded">
+                <div className="mb-8">
+                  <h3 className="font-medium text-lg mb-3">Available Colors</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProduct.colors.map((color, idx) => (
+                      <span key={idx} className="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">
                         {color}
                       </span>
                     ))}
@@ -479,38 +507,212 @@ const SofaType = () => {
                 </div>
                 
                 {/* CTA Buttons */}
-                <div className="mt-auto grid grid-cols-2 gap-3">
-                  <button className="bg-gold text-white py-2 rounded hover:bg-gold/90 transition-colors">
+                <div className="mt-auto grid grid-cols-2 gap-4">
+                  <button className="bg-gold text-white py-3 rounded-md hover:bg-gold/90 transition-colors">
                     Buy Now
                   </button>
-                  <button className="border border-gold text-gold py-2 rounded hover:bg-gold/10 transition-colors flex items-center justify-center">
-                    <Eye className="h-4 w-4 mr-2" />
-                    View Details
+                  <button className="border border-gold text-gold py-3 rounded-md hover:bg-gold/10 transition-colors">
+                    Add to Cart
                   </button>
                 </div>
+              </motion.div>
+            </div>
+          </div>
+          
+          {/* Additional Product Details */}
+          <div className="mt-12 mb-16">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl font-serif mb-6">Product Details</h2>
+              <div className="grid md:grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-xl font-medium mb-4">Description</h3>
+                  <p className="text-gray-600 mb-6">{selectedProduct.description}</p>
+                  <h3 className="text-xl font-medium mb-4">Care Instructions</h3>
+                  <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <li>Vacuum regularly using low suction</li>
+                    <li>Rotate cushions regularly to ensure even wear</li>
+                    <li>Avoid direct sunlight to prevent fading</li>
+                    <li>Blot spills immediately with a clean, dry cloth</li>
+                    <li>Professional cleaning recommended for stubborn stains</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-medium mb-4">Specifications</h3>
+                  <div className="space-y-4">
+                    <div className="flex border-b border-gray-200 pb-3">
+                      <span className="font-medium w-1/3">Dimensions</span>
+                      <span className="text-gray-600 w-2/3">{selectedProduct.dimensions}</span>
+                    </div>
+                    <div className="flex border-b border-gray-200 pb-3">
+                      <span className="font-medium w-1/3">Materials</span>
+                      <span className="text-gray-600 w-2/3">{selectedProduct.materials.join(', ')}</span>
+                    </div>
+                    <div className="flex border-b border-gray-200 pb-3">
+                      <span className="font-medium w-1/3">Colors</span>
+                      <span className="text-gray-600 w-2/3">{selectedProduct.colors.join(', ')}</span>
+                    </div>
+                    <div className="flex border-b border-gray-200 pb-3">
+                      <span className="font-medium w-1/3">Warranty</span>
+                      <span className="text-gray-600 w-2/3">5 Years Limited Warranty</span>
+                    </div>
+                    <div className="flex border-b border-gray-200 pb-3">
+                      <span className="font-medium w-1/3">Assembly</span>
+                      <span className="text-gray-600 w-2/3">Minimal assembly required</span>
+                    </div>
+                    <div className="flex">
+                      <span className="font-medium w-1/3">Made in</span>
+                      <span className="text-gray-600 w-2/3">India</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Custom Order Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-serif mb-6">Can't Find What You're Looking For?</h2>
-            <p className="text-gray-600 mb-8">
-              We offer custom sofa designs tailored to your specific requirements. Our master craftsmen can create the perfect sofa for your space.
-            </p>
-            <Link 
-              to="/contact" 
-              className="inline-block bg-gold text-white px-8 py-3 rounded-md hover:bg-gold/90 transition-colors duration-300"
-            >
-              Request a Custom Design
-            </Link>
+            </div>
           </div>
         </div>
-      </section>
+      ) : (
+        /* Collection View */
+        <>
+          {/* Hero Section */}
+          <section className="container mx-auto px-4 mb-16">
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl md:text-5xl font-serif mb-6"
+              >
+                {sofaType.title}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-xl text-gray-600 mb-8"
+              >
+                {sofaType.description}
+              </motion.p>
+            </div>
+          </section>
+
+          {/* Products Section */}
+          <section className="container mx-auto px-4 mb-16">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {sofaType.products.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row"
+                >
+                  {/* Product Image */}
+                  <div className="md:w-1/2 relative overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 right-4 flex space-x-2">
+                      <button className="bg-white p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <Heart className="h-5 w-5 text-gray-700" />
+                      </button>
+                      <button className="bg-white p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <Share2 className="h-5 w-5 text-gray-700" />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Product Details */}
+                  <div className="md:w-1/2 p-6 flex flex-col">
+                    <h3 className="text-2xl font-medium mb-2">{product.name}</h3>
+                    <span className="text-gold text-xl font-medium mb-4">{product.price}</span>
+                    <p className="text-gray-600 mb-4">{product.description}</p>
+                    
+                    {/* Product Features */}
+                    <div className="mb-4">
+                      <h4 className="font-medium text-lg mb-2">Features</h4>
+                      <ul className="list-disc pl-5 space-y-1">
+                        {product.features.map((feature, idx) => (
+                          <li key={idx} className="text-gray-600">{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    {/* Product Specifications */}
+                    <div className="mb-4 grid grid-cols-2 gap-4">
+                      <div>
+                        <span className="font-medium">Dimensions:</span>
+                        <p className="text-gray-600">{product.dimensions}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium">Availability:</span>
+                        <p className={`${
+                          product.availability === 'In Stock' 
+                            ? 'text-green-600' 
+                            : product.availability === 'Out of Stock' 
+                              ? 'text-red-600' 
+                              : 'text-amber-600'
+                        }`}>
+                          {product.availability}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="font-medium">Delivery:</span>
+                        <p className="text-gray-600">{product.delivery}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Color Options */}
+                    <div className="mb-6">
+                      <span className="font-medium">Available Colors:</span>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {product.colors.map((color, idx) => (
+                          <span key={idx} className="px-2 py-1 bg-gray-100 text-sm rounded">
+                            {color}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* CTA Buttons */}
+                    <div className="mt-auto grid grid-cols-2 gap-3">
+                      <button className="bg-gold text-white py-2 rounded hover:bg-gold/90 transition-colors">
+                        Buy Now
+                      </button>
+                      <button
+                        onClick={() => handleViewProduct(product)} 
+                        className="border border-gold text-gold py-2 rounded hover:bg-gold/10 transition-colors flex items-center justify-center"
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Custom Order Section */}
+          <section className="bg-gray-50 py-16">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-3xl font-serif mb-6">Can't Find What You're Looking For?</h2>
+                <p className="text-gray-600 mb-8">
+                  We offer custom sofa designs tailored to your specific requirements. Our master craftsmen can create the perfect sofa for your space.
+                </p>
+                <Link 
+                  to="/contact" 
+                  className="inline-block bg-gold text-white px-8 py-3 rounded-md hover:bg-gold/90 transition-colors duration-300"
+                >
+                  Request a Custom Design
+                </Link>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 };
