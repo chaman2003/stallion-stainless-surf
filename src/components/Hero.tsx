@@ -1,3 +1,4 @@
+
 import { Carousel, CarouselContent, CarouselItem } from './ui/carousel';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -162,7 +163,7 @@ const Hero = () => {
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-wide font-serif mb-2 text-shadow-lg"
               style={{ fontFamily: "'Playfair Display', serif", letterSpacing: '1px' }}>
-            STALLION ARTISANS
+            STALLION COMFORT SYSTEMS
           </h1>
           <div className="h-0.5 w-20 bg-gold mx-auto my-4"></div>
           <p className="text-lg md:text-xl tracking-wider mb-8 text-gray-200 text-shadow"
@@ -197,7 +198,7 @@ const Hero = () => {
           <Link to="/category/living-room">
             <button className="bg-white text-[#001F3F] px-8 py-3 rounded-none hover:bg-[#001F3F] hover:text-white transition-colors text-lg tracking-wider"
                     style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500 }}>
-              Explore Collection
+              Explore our Collection
             </button>
           </Link>
         </motion.div>

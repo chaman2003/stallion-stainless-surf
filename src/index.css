@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Young+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -24,7 +25,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 215 20.2% 65.1%;
     --radius: 0.5rem;
     --theme: 210 100% 12%; /* #001F3F - dark navy blue */
     --theme-hover: 210 100% 18%;
@@ -36,6 +37,7 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --gold: 43 50% 54%;
   }
 
   .dark {
@@ -54,10 +56,10 @@
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 85.7% 97.3%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 217.2 32.6% 17.5%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -75,7 +77,15 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground font-poppins antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-serif {
+    font-family: 'Playfair Display', serif;
   }
 }
 
@@ -97,49 +107,53 @@
 
 /* Theme color utilities to replace gold */
 .text-gold {
-  color: hsl(var(--theme));
+  color: rgb(212, 175, 55);
 }
 
 .bg-gold {
-  background-color: hsl(var(--theme));
+  background-color: rgb(212, 175, 55);
 }
 
 .hover\:bg-gold:hover {
-  background-color: hsl(var(--theme));
+  background-color: rgb(212, 175, 55);
 }
 
 .hover\:text-gold:hover {
-  color: hsl(var(--theme));
+  color: rgb(212, 175, 55);
 }
 
 .border-gold {
-  border-color: hsl(var(--theme));
+  border-color: rgb(212, 175, 55);
 }
 
 .focus\:ring-gold:focus {
-  --tw-ring-color: hsl(var(--theme));
+  --tw-ring-color: rgb(212, 175, 55);
 }
 
 .focus\:border-gold:focus {
-  border-color: hsl(var(--theme));
+  border-color: rgb(212, 175, 55);
 }
 
 .hover\:bg-gold\/90:hover {
-  background-color: hsl(var(--theme) / 0.9);
+  background-color: rgba(212, 175, 55, 0.9);
 }
 
 .hover\:text-gold\/80:hover {
-  color: hsl(var(--theme) / 0.8);
+  color: rgba(212, 175, 55, 0.8);
 }
 
 .bg-gold\/10 {
-  background-color: hsl(var(--theme) / 0.1);
+  background-color: rgba(212, 175, 55, 0.1);
 }
 
 .bg-gold\/80 {
-  background-color: hsl(var(--theme) / 0.8);
+  background-color: rgba(212, 175, 55, 0.8);
 }
 
 .text-gold\/80 {
-  color: hsl(var(--theme) / 0.8);
+  color: rgba(212, 175, 55, 0.8);
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
 }

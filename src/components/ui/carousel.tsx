@@ -60,6 +60,8 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        containScroll: "trimSnaps",
+        dragFree: false,
       },
       plugins
     )
@@ -161,8 +163,10 @@ const CarouselContent = React.forwardRef<
         className={cn(
           "flex",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          "transform-gpu will-change-transform",
           className
         )}
+        style={{ transform: "translateZ(0)" }}
         {...props}
       />
     </div>
