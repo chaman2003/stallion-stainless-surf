@@ -114,9 +114,9 @@ const Navigation = () => {
       { name: 'Artisans', path: '/artisans' }
     ]},
     { title: 'PROCESS', items: [
-      { name: 'Process Craftsmanship', path: '/process' },
+      { name: 'Craftsmanship', path: '/process' },
       { name: 'Materials', path: '/materials' },
-      { name: 'Sustainability', path: '/sustainability' }
+      
     ]},
     { title: 'PRODUCTS', items: [
       { 
@@ -142,7 +142,7 @@ const Navigation = () => {
               { name: 'Shaped Table', path: '/category/living-room/coffee-table/shaped-table'},
               { name: 'Nesting Table', path: '/category/living-room/coffee-table/nesting-table'},
             ]
-           },
+          },
           { name: 'Console Table', path: '/category/living-room/console-table' },
           { name: 'Corner Table', path: '/category/living-room/corner-table' }
         ]
@@ -150,6 +150,7 @@ const Navigation = () => {
       { name: 'Dining Room', path: '/category/dining-room' },
       { name: 'Bedroom', path: '/category/bedroom' }
     ]},
+    { title: 'SUSTAINABILITY', path: '/sustainability' },
     { title: 'ABOUT US', path: '/about' },
     { title: 'CONTACT US', path: '/contact' }
   ];
